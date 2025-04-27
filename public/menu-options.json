@@ -1,0 +1,64 @@
+{
+    "drinkTypes": {
+        "regular": [
+            {
+                "name": "ร้อน",
+                "price": 25
+            },
+            {
+                "name": "เย็น",
+                "price": 35
+            },
+            {
+                "name": "ปั่น",
+                "price": 40
+            }
+        ],
+        "soda": [
+            {
+                "name": "เย็น",
+                "price": 35
+            }
+        ]
+    },
+    "toppings": [
+        {
+            "name": "น้ำผึ้ง",
+            "price": 5
+        },
+        {
+            "name": "วานิลลา",
+            "price": 5
+        },
+        {
+            "name": "คาราเมล",
+            "price": 5
+        },
+        {
+            "name": "ไวท์มอลต์",
+            "price": 5
+        },
+        {
+            "name": "เพิ่มช็อต",
+            "price": 15
+        }
+    ],
+    "coffeeStrength": [
+        {
+            "name": "คั่วเข้ม",
+            "price": 0
+        },
+        {
+            "name": "คั่วกลาง",
+            "price": 0
+        },
+        {
+            "name": "คั่วอ่อน",
+            "price": 0
+        },
+        {
+            "name": "เบลนด์",
+            "price": 0
+        }
+    ]
+}

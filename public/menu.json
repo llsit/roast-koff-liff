@@ -1,0 +1,187 @@
+[
+    {
+        "category": "กาแฟ",
+        "items": [
+            {
+                "name": "เอสเพรสโซ่",
+                "englishName": "Espresso"
+            },
+            {
+                "name": "ลาเต้",
+                "englishName": "Latte"
+            },
+            {
+                "name": "คาปูชิโน่",
+                "englishName": "Cappuccino"
+            },
+            {
+                "name": "มอคค่า",
+                "englishName": "Mocha"
+            },
+            {
+                "name": "อเมริกาโน่",
+                "englishName": "Americano"
+            },
+            {
+                "name": "อเมริกาโน่น้ำผึ้ง",
+                "englishName": "Honey Americano"
+            },
+            {
+                "name": "อเมริกาโน่น้ำผึ้งมะนาว",
+                "englishName": "Honey Lemon Americano"
+            },
+            {
+                "name": "อเมริกาโน่น้ำส้ม",
+                "englishName": "Orange Americano"
+            },
+            {
+                "name": "อเมริกาโน่มะพร้าว",
+                "englishName": "Coconut Americano"
+            },
+            {
+                "name": "กาแฟนมสด",
+                "englishName": "Fresh Milk Coffee"
+            },
+            {
+                "name": "มัคคิอาโต้",
+                "englishName": "Macchiato"
+            },
+            {
+                "name": "ไวท์ช็อคมอคค่า",
+                "englishName": "White Choc Mocha"
+            }
+        ]
+    },
+    {
+        "category": "นมสด",
+        "items": [
+            {
+                "name": "นมสด",
+                "englishName": "Fresh Milk"
+            },
+            {
+                "name": "โกโก้",
+                "englishName": "Cocoa"
+            },
+            {
+                "name": "โกโก้นมสด",
+                "englishName": "Cocoa Milk"
+            },
+            {
+                "name": "ไวท์ช็อค",
+                "englishName": "White Chocolate"
+            },
+            {
+                "name": "โอวัลตินภูเขาไฟ",
+                "englishName": "Ovaltine Volcano"
+            },
+            {
+                "name": "ไมโลภูเขาไฟ",
+                "englishName": "Milo Volcano"
+            },
+            {
+                "name": "นมชมพู",
+                "englishName": "Pink Milk"
+            }
+        ]
+    },
+    {
+        "category": "โซดา",
+        "items": [
+            {
+                "name": "บลูเลมอนโซดา",
+                "englishName": "Blue Lemon Soda"
+            },
+            {
+                "name": "สตรอเบอรี่โซดา",
+                "englishName": "Strawberry Soda"
+            },
+            {
+                "name": "บลูเบอร์รี่โซดา",
+                "englishName": "Blueberry Soda"
+            },
+            {
+                "name": "แอปเปิ้ลโซดา",
+                "englishName": "Apple Soda"
+            },
+            {
+                "name": "กีวี่โซดา",
+                "englishName": "Kiwi Soda"
+            },
+            {
+                "name": "แคนตาลูปโซดา",
+                "englishName": "Cantaloupe Soda"
+            }
+        ]
+    },
+    {
+        "category": "ชา",
+        "items": [
+            {
+                "name": "ชาซีลอนผสมกาแฟ",
+                "englishName": "Ceylon Coffee"
+            },
+            {
+                "name": "ชาซีลอนนมสด",
+                "englishName": "Ceylon Milk Tea"
+            },
+            {
+                "name": "ชามะนาว",
+                "englishName": "Lemon Tea"
+            },
+            {
+                "name": "ชาเขียวมะนาว",
+                "englishName": "Lemon Green Tea"
+            },
+            {
+                "name": "ชาพีช",
+                "englishName": "Peach Tea"
+            },
+            {
+                "name": "ชาแอปเปิ้ล",
+                "englishName": "Apple Tea"
+            },
+            {
+                "name": "ชาเอิร์ลเกรย์",
+                "englishName": "Earl Grey Tea"
+            },
+            {
+                "name": "ลาเต้ชาเอิร์ลเกรย์",
+                "englishName": "Earl Grey Latte"
+            },
+            {
+                "name": "ชาเนสที",
+                "englishName": "Nestea"
+            },
+            {
+                "name": "กีวี่ชาซีลอน",
+                "englishName": "Kiwi Ceylon Tea"
+            }
+        ]
+    },
+    {
+        "category": "ชาเขียว",
+        "items": [
+            {
+                "name": "ชาเขียวผสมกาแฟ",
+                "englishName": "Green Tea Coffee"
+            },
+            {
+                "name": "ชาเชียวนมสด",
+                "englishName": "Milk Green Tea"
+            },
+            {
+                "name": "ชาเขียวมัทฉะ",
+                "englishName": "Matcha Green Tea"
+            },
+            {
+                "name": "ชาเขียวมัทฉะลาเต้",
+                "englishName": "Matcha Latte"
+            },
+            {
+                "name": "เพียวมัทฉะ",
+                "englishName": "Pure Matcha"
+            }
+        ]
+    }
+]
