@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { usedrinkOptions } from './DrinkOptionsProvider';
+import { useCart } from './CartProvider';
 
 interface Item {
   name: string;
@@ -46,15 +47,22 @@ export default function MenuList({
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [note, setNote] = useState('');
-  
+
+  // Use the cart context
+  const { addToCart } = useCart();
+
   // Use the context to get options
   const { options, isLoading, getDrinkTypeOptions } = usedrinkOptions();
-  
+
   // State for selected options
   const [selectedDrinkType, setSelectedDrinkType] = useState<PriceItem | null>(null);
   const [selectedToppings, setSelectedToppings] = useState<PriceItem[]>([]);
   const [selectedStrength, setSelectedStrength] = useState<PriceItem | null>(null);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  // Toast notification
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     fetch('/menu.json')
@@ -67,12 +75,12 @@ export default function MenuList({
     // Calculate total price whenever selections change
     if (selectedDrinkType) {
       let price = selectedDrinkType.price;
-      
+
       // Add toppings prices
       selectedToppings.forEach(topping => {
         price += topping.price;
       });
-      
+
       setTotalPrice(price);
     } else {
       setTotalPrice(0);
@@ -83,22 +91,22 @@ export default function MenuList({
     // Set default values when a new item is selected
     if (selectedItem && options) {
       const drinkTypeOptions = getDrinkTypeOptions(selectedCategory);
-      
+
       // Set default drink type (first option)
       if (drinkTypeOptions.length > 0) {
         setSelectedDrinkType(drinkTypeOptions[0]);
       }
-      
+
       // Reset toppings
       setSelectedToppings([]);
-      
+
       // Set default strength (first option for coffee)
       if (selectedCategory.includes('กาแฟ') && options.coffeeStrength.length > 0) {
         setSelectedStrength(options.coffeeStrength[0]);
       } else {
         setSelectedStrength(null);
       }
-      
+
       // Reset note
       setNote('');
     }
@@ -132,21 +140,31 @@ export default function MenuList({
     setSelectedStrength(strength);
   };
 
-  const handleSubmit = () => {
+  const handleAddToCart = () => {
     if (!selectedItem || !selectedDrinkType) return;
 
-    const orderItem: OrderItem = {
+    const cartItem = {
       item: selectedItem,
       category: selectedCategory,
       drinkType: selectedDrinkType,
       toppings: selectedToppings,
-      strength: selectedStrength, 
+      strength: selectedStrength,
       note: note,
       totalPrice: totalPrice
     };
-    
-    console.log('Order submitted:', orderItem);
-    
+
+    // Add to cart
+    addToCart(cartItem);
+
+    // Show toast notification
+    setToastMessage(`เพิ่ม ${selectedItem.name} ลงในตะกร้าแล้ว`);
+    setShowToast(true);
+
+    // Hide toast after 3 seconds
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+
     // Close the modal after submission
     setIsModalOpen(false);
     setSelectedItem(null);
@@ -208,8 +226,8 @@ export default function MenuList({
                 <h2 className="text-xl font-bold" style={{ color: primaryColor }}>{selectedItem.name}</h2>
                 <small style={{ color: accentColor }}>{selectedItem.englishName}</small>
               </div>
-              <button 
-                onClick={closeModal} 
+              <button
+                onClick={closeModal}
                 className="p-1 rounded-full"
                 style={{ backgroundColor: backgroundColor }}
               >
@@ -224,10 +242,10 @@ export default function MenuList({
               <h3 className="font-semibold mb-3" style={{ color: primaryColor }}>เลือกประเภทเครื่องดื่ม</h3>
               <div className="flex flex-wrap gap-2">
                 {getDrinkTypeOptions(selectedCategory).map((option) => (
-                  <label 
-                    key={option.name} 
+                  <label
+                    key={option.name}
                     className={`flex items-center p-2 border rounded-md cursor-pointer hover:bg-gray-100`}
-                    style={{ 
+                    style={{
                       borderColor: selectedDrinkType?.name === option.name ? secondaryColor : '#e5e7eb',
                       backgroundColor: selectedDrinkType?.name === option.name ? backgroundColor : '#f9fafb'
                     }}
@@ -251,10 +269,10 @@ export default function MenuList({
               <h3 className="font-semibold mb-3" style={{ color: primaryColor }}>เลือก Toppings</h3>
               <div className="grid grid-cols-2 gap-2">
                 {options.toppings.map((topping) => (
-                  <label 
-                    key={topping.name} 
+                  <label
+                    key={topping.name}
                     className={`flex items-center p-2 border rounded-md cursor-pointer hover:bg-gray-100`}
-                    style={{ 
+                    style={{
                       borderColor: selectedToppings.some(t => t.name === topping.name) ? secondaryColor : '#e5e7eb',
                       backgroundColor: selectedToppings.some(t => t.name === topping.name) ? backgroundColor : '#f9fafb'
                     }}
@@ -278,10 +296,10 @@ export default function MenuList({
                 <h3 className="font-semibold mb-3" style={{ color: primaryColor }}>เลือกระดับความเข้ม</h3>
                 <div className="grid grid-cols-2 gap-2">
                   {options.coffeeStrength.map((strength) => (
-                    <label 
-                      key={strength.name} 
+                    <label
+                      key={strength.name}
                       className={`flex items-center p-2 border rounded-md cursor-pointer hover:bg-gray-100`}
-                      style={{ 
+                      style={{
                         borderColor: selectedStrength?.name === strength.name ? secondaryColor : '#e5e7eb',
                         backgroundColor: selectedStrength?.name === strength.name ? backgroundColor : '#f9fafb'
                       }}
@@ -309,11 +327,11 @@ export default function MenuList({
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="เพิ่มหมายเหตุ เช่น หวานน้อย ไม่ใส่น้ำแข็ง"
                 className="w-full p-3 border rounded-md focus:outline-none"
-                style={{ 
+                style={{
                   borderColor: '#e5e7eb',
                   boxShadow: 'none',
                   color: primaryColor,
-                  backgroundColor: '#f9fafb' 
+                  backgroundColor: '#f9fafb'
                 }}
                 rows={3}
               />
@@ -337,13 +355,28 @@ export default function MenuList({
                 ยกเลิก
               </button>
               <button
-                onClick={handleSubmit}
+                onClick={handleAddToCart}
                 className="px-5 py-2 text-white rounded-md transition-colors font-medium"
                 style={{ backgroundColor: primaryColor, boxShadow: `0 2px 0 ${accentColor}` }}
               >
-                ยืนยัน
+                เพิ่มลงตะกร้า
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Toast notification */}
+      {showToast && (
+        <div
+          className="fixed bottom-4 right-4 px-4 py-3 rounded-md shadow-lg animate-fadeIn"
+          style={{ backgroundColor: primaryColor }}
+        >
+          <div className="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="white">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <p className="text-white">{toastMessage}</p>
           </div>
         </div>
       )}
