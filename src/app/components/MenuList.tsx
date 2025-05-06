@@ -199,19 +199,19 @@ export default function MenuList({
                 className="p-5 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
                 style={{ borderTop: `3px solid ${secondaryColor}` }}
               >
-                <div className="flex justify-between items-start">
+                <div className="flex justify-between items-center mb-2">
                   <div>
-                    <h3 className="text-lg font-semibold mb-1" style={{ color: primaryColor }}>{item.name}</h3>
-                    <p className="text-sm mb-3" style={{ color: accentColor }}>{item.englishName}</p>
+                    <h3 className="text-lg font-semibold" style={{ color: primaryColor }}>{item.name}</h3>
+                    <p className="text-sm" style={{ color: accentColor }}>{item.englishName}</p>
                   </div>
+                  <button
+                    onClick={() => openModal(item, menu.category)}
+                    className="flex items-center gap-1 text-sm text-white px-3 py-1 rounded-md transition-colors duration-300"
+                    style={{ backgroundColor: primaryColor, boxShadow: `0 2px 0 ${accentColor}` }}
+                  >
+                    <span className="text-lg font-bold">＋</span> เพิ่ม
+                  </button>
                 </div>
-                <button
-                  onClick={() => openModal(item, menu.category)}
-                  className="w-full py-2 px-4 text-white rounded-md transition-colors duration-300 font-medium"
-                  style={{ backgroundColor: primaryColor, boxShadow: `0 2px 0 ${accentColor}` }}
-                >
-                  เลือก
-                </button>
               </div>
             ))}
           </div>

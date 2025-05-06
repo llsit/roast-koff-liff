@@ -53,68 +53,6 @@
         ]
     },
     {
-        "category": "นมสด",
-        "items": [
-            {
-                "name": "นมสด",
-                "englishName": "Fresh Milk"
-            },
-            {
-                "name": "โกโก้",
-                "englishName": "Cocoa"
-            },
-            {
-                "name": "โกโก้นมสด",
-                "englishName": "Cocoa Milk"
-            },
-            {
-                "name": "ไวท์ช็อค",
-                "englishName": "White Chocolate"
-            },
-            {
-                "name": "โอวัลตินภูเขาไฟ",
-                "englishName": "Ovaltine Volcano"
-            },
-            {
-                "name": "ไมโลภูเขาไฟ",
-                "englishName": "Milo Volcano"
-            },
-            {
-                "name": "นมชมพู",
-                "englishName": "Pink Milk"
-            }
-        ]
-    },
-    {
-        "category": "โซดา",
-        "items": [
-            {
-                "name": "บลูเลมอนโซดา",
-                "englishName": "Blue Lemon Soda"
-            },
-            {
-                "name": "สตรอเบอรี่โซดา",
-                "englishName": "Strawberry Soda"
-            },
-            {
-                "name": "บลูเบอร์รี่โซดา",
-                "englishName": "Blueberry Soda"
-            },
-            {
-                "name": "แอปเปิ้ลโซดา",
-                "englishName": "Apple Soda"
-            },
-            {
-                "name": "กีวี่โซดา",
-                "englishName": "Kiwi Soda"
-            },
-            {
-                "name": "แคนตาลูปโซดา",
-                "englishName": "Cantaloupe Soda"
-            }
-        ]
-    },
-    {
         "category": "ชา",
         "items": [
             {
@@ -181,6 +119,68 @@
             {
                 "name": "เพียวมัทฉะ",
                 "englishName": "Pure Matcha"
+            }
+        ]
+    },
+    {
+        "category": "นมสด",
+        "items": [
+            {
+                "name": "นมสด",
+                "englishName": "Fresh Milk"
+            },
+            {
+                "name": "โกโก้",
+                "englishName": "Cocoa"
+            },
+            {
+                "name": "โกโก้นมสด",
+                "englishName": "Cocoa Milk"
+            },
+            {
+                "name": "ไวท์ช็อค",
+                "englishName": "White Chocolate"
+            },
+            {
+                "name": "โอวัลตินภูเขาไฟ",
+                "englishName": "Ovaltine Volcano"
+            },
+            {
+                "name": "ไมโลภูเขาไฟ",
+                "englishName": "Milo Volcano"
+            },
+            {
+                "name": "นมชมพู",
+                "englishName": "Pink Milk"
+            }
+        ]
+    },
+    {
+        "category": "โซดา",
+        "items": [
+            {
+                "name": "บลูเลมอนโซดา",
+                "englishName": "Blue Lemon Soda"
+            },
+            {
+                "name": "สตรอเบอรี่โซดา",
+                "englishName": "Strawberry Soda"
+            },
+            {
+                "name": "บลูเบอร์รี่โซดา",
+                "englishName": "Blueberry Soda"
+            },
+            {
+                "name": "แอปเปิ้ลโซดา",
+                "englishName": "Apple Soda"
+            },
+            {
+                "name": "กีวี่โซดา",
+                "englishName": "Kiwi Soda"
+            },
+            {
+                "name": "แคนตาลูปโซดา",
+                "englishName": "Cantaloupe Soda"
             }
         ]
     }
