@@ -30,7 +30,7 @@ function HomePage() {
             </h1>
           </div>
           <div className="flex items-center gap-4">
-            <button 
+            <button
               className="p-2 relative"
               onClick={() => setIsCartOpen(true)}
               aria-label="Open cart"
@@ -79,9 +79,12 @@ function HomePage() {
       {/* Footer */}
       <footer style={{ backgroundColor: colors.deepBrown }} className="text-white py-6 mt-10">
         <div className="container mx-auto px-4 text-center">
-          <p style={{ color: colors.cream }}>© 2025 ROAST KOFF - ติดต่อเรา: 062-XXX-XXXX</p>
+          <p style={{ color: colors.cream }}>
+            © 2025 ROAST KOFF - ติดต่อเรา: 062-XXX-XXXX | เวอร์ชัน {process.env.NEXT_PUBLIC_APP_VERSION}
+          </p>
         </div>
       </footer>
+
     </main>
   );
 }
