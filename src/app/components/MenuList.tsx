@@ -24,6 +24,7 @@ interface OrderItem {
   category: string;
   drinkType: PriceItem | null;
   toppings: PriceItem[];
+  sweet: PriceItem | null;
   strength: PriceItem | null;
   note: string;
   totalPrice: number;

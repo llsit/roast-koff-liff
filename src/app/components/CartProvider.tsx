@@ -18,7 +18,7 @@ export interface CartItem {
   category: string;
   drinkType: PriceItem;
   toppings: PriceItem[];
-  sweet: PriceItem;
+  sweet: PriceItem | null;
   strength: PriceItem | null;
   note: string;
   totalPrice: number;
