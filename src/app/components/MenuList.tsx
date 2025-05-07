@@ -103,8 +103,8 @@ export default function MenuList({
       setSelectedToppings([]);
 
       // Set default sweet (first option)
-      if (options.coffeeStrength.length > 0) {
-        setSelectedStrength(options.coffeeStrength[0]);
+      if (options.sweetness.length > 0) {
+        setSelectedSweet(options.sweetness[0]);
       }
 
       // Set default strength (first option for coffee)
