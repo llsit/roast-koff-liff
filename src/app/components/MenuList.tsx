@@ -57,6 +57,7 @@ export default function MenuList({
   // State for selected options
   const [selectedDrinkType, setSelectedDrinkType] = useState<PriceItem | null>(null);
   const [selectedToppings, setSelectedToppings] = useState<PriceItem[]>([]);
+  const [selectedSweet, setSelectedSweet] = useState<PriceItem | null>(null);
   const [selectedStrength, setSelectedStrength] = useState<PriceItem | null>(null);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -100,6 +101,11 @@ export default function MenuList({
       // Reset toppings
       setSelectedToppings([]);
 
+      // Set default sweet (first option)
+      if (options.coffeeStrength.length > 0) {
+        setSelectedStrength(options.coffeeStrength[0]);
+      }
+
       // Set default strength (first option for coffee)
       if (selectedCategory.includes('กาแฟ') && options.coffeeStrength.length > 0) {
         setSelectedStrength(options.coffeeStrength[0]);
@@ -136,6 +142,10 @@ export default function MenuList({
     }
   };
 
+  const handleSweetChange = (sweet: PriceItem) => {
+    setSelectedSweet(sweet);
+  };
+
   const handleStrengthChange = (strength: PriceItem) => {
     setSelectedStrength(strength);
   };
@@ -148,6 +158,7 @@ export default function MenuList({
       category: selectedCategory,
       drinkType: selectedDrinkType,
       toppings: selectedToppings,
+      sweet: selectedSweet,
       strength: selectedStrength,
       note: note,
       totalPrice: totalPrice
@@ -197,7 +208,7 @@ export default function MenuList({
               <div
                 key={itemIndex}
                 className="p-5 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-                style={{ borderTop: `3px solid ${secondaryColor}` }}
+                style={{ border: `3px solid ${secondaryColor}` }}
               >
                 <div className="flex justify-between items-center mb-2">
                   <div>
@@ -285,6 +296,33 @@ export default function MenuList({
                       style={{ accentColor: secondaryColor }}
                     />
                     <span style={{ color: primaryColor }}>{topping.name} (+{topping.price}฿)</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* ระดับความหวาน */}
+            <div className="mb-6">
+              <h3 className="font-semibold mb-3" style={{ color: primaryColor }}>เลือกระดับความหวาน</h3>
+              <div className="grid grid-cols-2 gap-2">
+                {options.sweetness.map((sweet) => (
+                  <label
+                    key={sweet.name}
+                    className={`flex items-center p-2 border rounded-md cursor-pointer hover:bg-gray-100`}
+                    style={{
+                      borderColor: selectedSweet?.name === sweet.name ? secondaryColor : '#e5e7eb',
+                      backgroundColor: selectedSweet?.name === sweet.name ? backgroundColor : '#f9fafb'
+                    }}
+                  >
+                    <input
+                      type="radio"
+                      name="coffeeSweet"
+                      checked={selectedSweet?.name === sweet.name}
+                      onChange={() => handleSweetChange(sweet)}
+                      className="mr-2"
+                      style={{ accentColor: secondaryColor }}
+                    />
+                    <span style={{ color: primaryColor }}>{sweet.name}</span>
                   </label>
                 ))}
               </div>

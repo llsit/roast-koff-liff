@@ -12,6 +12,7 @@ interface DrinkOptions {
     regular: PriceItem[];
     soda: PriceItem[];
   };
+  sweetness: PriceItem[];
   toppings: PriceItem[];
   coffeeStrength: PriceItem[];
 }
@@ -59,7 +60,7 @@ export const DrinkOptionsProvider = ({ children }: { children: ReactNode }) => {
 
   const getDrinkTypeOptions = (category: string): PriceItem[] => {
     if (!options) return [];
-    
+
     // Check if the category is "โซดา", if yes return soda options, otherwise return regular options
     return category === "โซดา" ? options.drinkTypes.soda : options.drinkTypes.regular;
   };

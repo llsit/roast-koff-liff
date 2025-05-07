@@ -197,6 +197,14 @@ function CartItemComponent({
               Toppings: {item.toppings.map(t => t.name).join(', ')}
             </p>
           )}
+
+          {/* Display coffee sweet if applicable */}
+          {item.sweet && (
+            <p className="text-xs" style={{ color: accentColor }}>
+              ความหวาน: {item.sweet.name}
+            </p>
+          )}
+          
           
           {/* Display coffee strength if applicable */}
           {item.strength && (
