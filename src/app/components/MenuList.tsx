@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { usedrinkOptions } from './DrinkOptionsProvider';
 import { useCart } from './CartProvider';
+import NavBar from './Navbar';
 
 interface Item {
   name: string;
@@ -48,6 +49,7 @@ export default function MenuList({
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [note, setNote] = useState('');
+  const [activeCategory, setActiveCategory] = useState('');
 
   // Use the cart context
   const { addToCart } = useCart();
@@ -69,9 +71,44 @@ export default function MenuList({
   useEffect(() => {
     fetch('/menu.json')
       .then((res) => res.json())
-      .then((data) => setMenus(data))
+      .then((data) => {
+        setMenus(data);
+        if (data.length > 0) {
+          setActiveCategory(`menu-0`); // Set first category as active by default
+        }
+      })
       .catch(error => console.error('Error loading menu data:', error));
   }, []);
+
+  // Set active category based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 100; // Add offset for better detection
+
+      // Find the currently visible section
+      const sections = menus.map((_, idx) => {
+        const element = document.getElementById(`menu-${idx}`);
+        if (!element) return { id: `menu-${idx}`, top: 0, bottom: 0 };
+
+        const rect = element.getBoundingClientRect();
+        return {
+          id: `menu-${idx}`,
+          top: rect.top + window.scrollY,
+          bottom: rect.bottom + window.scrollY
+        };
+      });
+
+      for (const section of sections) {
+        if (scrollPosition >= section.top && scrollPosition < section.bottom) {
+          setActiveCategory(section.id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [menus]);
 
   useEffect(() => {
     // Calculate total price whenever selections change
@@ -183,6 +220,10 @@ export default function MenuList({
     setNote('');
   };
 
+  const handleCategoryClick = (categoryId: string) => {
+    setActiveCategory(categoryId);
+  };
+
   if (isLoading || !options) {
     return (
       <div className="text-center py-8" style={{ color: primaryColor }}>
@@ -199,29 +240,40 @@ export default function MenuList({
 
   return (
     <div className="container mx-auto px-4">
+      {/* Using the extracted NavBar component */}
+      <NavBar 
+        menus={menus}
+        activeCategory={activeCategory}
+        onCategoryClick={handleCategoryClick}
+        primaryColor={primaryColor}
+        secondaryColor={secondaryColor}
+        accentColor={accentColor}
+        backgroundColor={backgroundColor}
+      />
+
+      {/* === Menu Sections === */}
       {menus.map((menu, index) => (
-        <div key={index} className="mb-10">
-          <h2 className="text-2xl font-bold mb-6 relative" style={{ color: primaryColor }}>
-            <span className="border-b-2 pb-1" style={{ borderColor: secondaryColor }}>{menu.category}</span>
+        <div id={`menu-${index}`} key={index} className="mb-10 pt-4 scroll-mt-20">
+          <h2 className="text-xl font-bold mb-6 relative" style={{ color: primaryColor }}>
+            <span className="inline-block border-b-2 pb-1" style={{ borderColor: secondaryColor }}>{menu.category}</span>
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {menu.items.map((item, itemIndex) => (
               <div
                 key={itemIndex}
-                className="p-5 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-                style={{ border: `3px solid ${secondaryColor}` }}
+                className="p-4 bg-white rounded-lg shadow-sm hover:shadow transition-shadow duration-300" style={{ borderLeft: `3px solid ${secondaryColor}` }}
               >
-                <div className="flex justify-between items-center mb-2">
+                <div className="flex justify-between items-center">
                   <div>
-                    <h3 className="text-lg font-semibold" style={{ color: primaryColor }}>{item.name}</h3>
-                    <p className="text-sm" style={{ color: accentColor }}>{item.englishName}</p>
+                    <h3 className="text-lg font-medium" style={{ color: primaryColor }}>{item.name}</h3>
+                    <p className="text-xs text-gray-500">{item.englishName}</p>
                   </div>
                   <button
                     onClick={() => openModal(item, menu.category)}
-                    className="flex items-center gap-1 text-sm text-white px-3 py-1 rounded-md transition-colors duration-300"
-                    style={{ backgroundColor: primaryColor, boxShadow: `0 2px 0 ${accentColor}` }}
+                    className="flex items-center gap-1 text-sm text-white px-3 py-1 rounded-md transition-colors duration-200"
+                    style={{ backgroundColor: primaryColor }}
                   >
-                    <span className="text-lg font-bold">＋</span> เพิ่ม
+                    <span className="text-lg">+</span> เพิ่ม
                   </button>
                 </div>
               </div>
@@ -231,17 +283,16 @@ export default function MenuList({
       ))}
 
       {selectedItem && isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
-          <div className="bg-white p-6 rounded-lg w-full max-w-md relative animate-fadeIn overflow-y-auto max-h-[90vh]">
-            <div className="flex justify-between items-center mb-6 pb-3" style={{ borderBottom: `2px solid ${backgroundColor}` }}>
+        <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50 p-4">
+          <div className="bg-white p-6 rounded-lg w-full max-w-md relative animate-fadeIn overflow-y-auto max-h-[90vh] shadow-xl">
+            <div className="flex justify-between items-center mb-4 pb-3" style={{ borderBottom: `1px solid ${secondaryColor}` }}>
               <div>
                 <h2 className="text-xl font-bold" style={{ color: primaryColor }}>{selectedItem.name}</h2>
-                <small style={{ color: accentColor }}>{selectedItem.englishName}</small>
+                <small className="text-gray-500">{selectedItem.englishName}</small>
               </div>
               <button
                 onClick={closeModal}
-                className="p-1 rounded-full"
-                style={{ backgroundColor: backgroundColor }}
+                className="p-1 rounded-full hover:bg-gray-100 transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill={primaryColor}>
                   <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
