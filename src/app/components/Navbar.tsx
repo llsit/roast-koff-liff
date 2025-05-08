@@ -11,20 +11,20 @@ interface NavBarProps {
   menus: Menu[];
   activeCategory: string;
   onCategoryClick: (categoryId: string) => void;
-  primaryColor: string;
-  secondaryColor: string;
-  accentColor: string;
-  backgroundColor: string;
+  primaryColor?: string;
+  secondaryColor?: string;
+  accentColor?: string;
+  backgroundColor?: string;
 }
 
 export default function NavBar({
   menus,
   activeCategory,
   onCategoryClick,
-  primaryColor,
-  secondaryColor,
-  accentColor,
-  backgroundColor
+  primaryColor = '#4B5563',
+  secondaryColor = '#E5E7EB',
+  accentColor = '#9CA3AF',
+  backgroundColor = '#FFFFFF'
 }: NavBarProps) {
   
   const handleCategoryClick = (categoryId: string, event: React.MouseEvent) => {
@@ -39,9 +39,9 @@ export default function NavBar({
   };
 
   return (
-    <nav className="sticky top-0 z-30 py-2 shadow-md" style={{ backgroundColor, borderBottom: `2px solid ${secondaryColor}` }}>
-      <div className="pt-16 container mx-auto px-4">
-        <ul className="flex space-x-2 md:space-x-6 overflow-x-auto py-2 px-3 max-w-full no-scrollbar">
+    <nav className="sticky top-0 z-30 py-2 shadow-md bg-white/90 backdrop-blur-sm">
+      <div className="container mx-auto px-4 pt-4">
+        <ul className="flex space-x-3 md:space-x-4 overflow-x-auto py-2 px-2 max-w-full no-scrollbar">
           {menus.map((menu, idx) => {
             const categoryId = `menu-${idx}`;
             const isActive = activeCategory === categoryId;
@@ -52,13 +52,11 @@ export default function NavBar({
                   id={`nav-${categoryId}`}
                   href={`#${categoryId}`}
                   onClick={(e) => handleCategoryClick(categoryId, e)}
-                  className={`px-3 py-2 rounded-lg text-sm md:text-base font-medium whitespace-nowrap transition-all duration-300 flex items-center ${isActive ? 'transform scale-105' : 'hover:scale-105'}`}
-                  style={{
-                    backgroundColor: isActive ? primaryColor : 'transparent',
-                    color: isActive ? 'white' : primaryColor,
-                    boxShadow: isActive ? `0 2px 4px rgba(0,0,0,0.2)` : 'none',
-                    border: `1px solid ${isActive ? primaryColor : accentColor}`
-                  }}
+                  className={`px-3 py-2 rounded-lg text-sm md:text-base font-medium whitespace-nowrap transition-all duration-200 flex items-center ${
+                    isActive 
+                      ? 'bg-gray-100 text-gray-800 shadow-sm' 
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                  }`}
                 >
                   {/* Coffee icon for coffee categories */}
                   {menu.category.includes('กาแฟ') && (
